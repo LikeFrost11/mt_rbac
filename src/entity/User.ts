@@ -5,7 +5,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Transform } from 'class-transformer';
 import moment from 'moment';
 
 @Entity()

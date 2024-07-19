@@ -1,59 +1,54 @@
-import { Context } from 'koa';
-import AppDataSource from '../data-source';
-import { User } from "../entity/User";
-import { Repository } from 'typeorm';
+import { Get, JsonController, Param, QueryParam } from 'routing-controllers';
+import { Inject, Service } from 'typedi';
+import { UserServiceImpl } from '../service/impl/UserServiceImpl';
 
+@Service()
+@JsonController('/users')
 export default class UserController {
-  private userRepository: Repository<User> = AppDataSource.getRepository(User);
-  async getAllUsers(ctx: Context) {
-    const users = await this.userRepository.find({ relations: ['posts'] });
-    ctx.body = users;
+  constructor(
+    @Inject()
+    private userService: UserServiceImpl
+  ) {}
+
+  @Get('/')
+  async getAllUsers() {
+    console.log('查询所有用户');
+    return this.userService.getAllUsers();
   }
 
-  static async createUser(ctx: Context) {
-    const userRepository = AppDataSource.getRepository(User);
-    const body = ctx.request.body as Partial<User>;
-    const newUser = userRepository.create(body);
-    const result = await userRepository.save(newUser);
-    ctx.body = result;
+  // async createUser(ctx: Context) {
+  //   const userRepository = this.userRepository;
+  //   const body = ctx.request.body as Partial<User>;
+  //   const newUser = userRepository.create(body);
+  //   const result = await userRepository.save(newUser);
+  //   ctx.body = result;
+  // }
+  @Get('/name')
+  async getUserByName(@QueryParam('name') name: string) {
+    console.log('查询用户: name = ', name);
+    return this.userService.getUserByName(name);
   }
 
-  static async getUserById(ctx: Context) {
-    const userRepository = AppDataSource.getRepository(User);
-    const user = await userRepository.findOne({
-      where: { id: parseInt(ctx.params.id) },
-      relations: ['posts'],
-    });
-    if (user) {
-      ctx.body = user;
-    } else {
-      ctx.status = 404;
-      ctx.body = { message: 'User not found' };
-    }
+  @Get('/:id')
+  async getUserById(@Param('id') id: number) {
+    console.log('查询用户: id = ' + id);
+    return this.userService.getUserById(id);
   }
 
-  static async updateUser(ctx: Context) {
-    const userRepository = AppDataSource.getRepository(User);
-    const user = await userRepository.findOneBy({ id: parseInt(ctx.params.id) });
-    if (user) {
-      const body = ctx.request.body as Partial<User>;
-      userRepository.merge(user, body);
-      const result = await userRepository.save(user);
-      ctx.body = result;
-    } else {
-      ctx.status = 404;
-      ctx.body = { message: 'User not found' };
-    }
-  }
+  // async updateUser(ctx: Context) {
+  //   const body = ctx.request.body as User;
+  //   const result = this.userService.updateUser(body);
+  //   ctx.body = result;
+  // }
 
-  static async deleteUser(ctx: Context) {
-    const userRepository = AppDataSource.getRepository(User);
-    const result = await userRepository.delete(ctx.params.id);
-    if (result.affected) {
-      ctx.status = 204;
-    } else {
-      ctx.status = 404;
-      ctx.body = { message: 'User not found' };
-    }
-  }
+  // async deleteUser(ctx: Context) {
+  //   const userRepository = this.userRepository;
+  //   const result = await userRepository.delete(ctx.params.id);
+  //   if (result.affected) {
+  //     ctx.status = 204;
+  //   } else {
+  //     ctx.status = 404;
+  //     ctx.body = { message: 'User not found' };
+  //   }
+  // }
 }
