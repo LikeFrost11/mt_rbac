@@ -4,6 +4,7 @@ import bodyParser from 'koa-bodyparser';
 import { useKoaServer } from 'routing-controllers';
 import { Container } from 'typedi';
 import UserController from './controller/UserController';
+import PermissionController from './controller/PermissionController';
 import { AppDataSource } from './data-source';
 import { useContainer as typeOrmUseContainer } from 'typeorm';
 import { useContainer as rcUseContainer } from 'routing-controllers';
@@ -20,7 +21,7 @@ AppDataSource.initialize()
     app.use(bodyParser());
 
     useKoaServer(app, {
-      controllers: [UserController], // 手动注册控制器
+      controllers: [UserController, PermissionController], // 手动注册控制器
     });
 
     const PORT = process.env.PORT || 3000;

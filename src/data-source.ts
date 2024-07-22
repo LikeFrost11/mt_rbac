@@ -1,5 +1,7 @@
 import { DataSource } from 'typeorm';
 import { User } from './entity/User';
+import { Permission } from './entity/Permission';
+import { PermissionGroup } from './entity/PermissionGroup';
 
 export const AppDataSource = new DataSource({
   type: 'mysql',
@@ -10,7 +12,7 @@ export const AppDataSource = new DataSource({
   database: 'yu_rdbc',
   synchronize: false,
   logging: ['query', 'error'],
-  entities: [User],
+  entities: [User, Permission, PermissionGroup],
   migrations: [],
   subscribers: [],
 });

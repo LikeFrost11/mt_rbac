@@ -1,7 +1,4 @@
 import 'reflect-metadata';
-//import { Service } from 'typedi';
-//import { UserService } from '../UserService';
-//import { userRepository } from '../repository/UserRepository';
 import { User } from '../entity/User';
 import Result from '../commons/Result';
 

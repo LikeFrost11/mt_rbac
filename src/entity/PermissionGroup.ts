@@ -7,25 +7,16 @@ import {
 } from 'typeorm';
 import moment from 'moment';
 
-@Entity('user')
-export class User {
+@Entity('permission_group') // 指定表名
+export class PermissionGroup {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ name: 'user_name' })
-  userName!: string;
+  @Column({ type: 'varchar', length: 32, nullable: true, name: 'group_name' })
+  groupName!: string;
 
-  @Column()
-  email!: string;
-
-  @Column()
-  password!: string;
-
-  @Column({ name: 'enterprise_id' })
-  enterpriseId!: number;
-
-  @Column({ name: 'group_id' })
-  groupId!: number;
+  @Column({ type: 'varchar', length: 64, nullable: true, name: 'group_desc' })
+  groupDesc!: string;
 
   @CreateDateColumn({
     name: 'create_time',
