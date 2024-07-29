@@ -1,7 +1,7 @@
 import { User } from '../entity/User';
-import { AppDataSource } from '../data-source';
+import { appDataSource } from '../data-source';
 
-export const userRepository = AppDataSource.getRepository(User).extend({
+export const userRepository = appDataSource.getRepository(User).extend({
   getByName(userName: string) {
     return (
       this.createQueryBuilder('user')

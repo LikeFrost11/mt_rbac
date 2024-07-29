@@ -12,7 +12,8 @@
     "baseUrl": "./src",
     "paths": {
       "*": ["node_modules/*"]
-    }
+    },
+    "strictPropertyInitialization": false
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]

@@ -3,7 +3,7 @@ import { User } from './entity/User';
 import { Permission } from './entity/Permission';
 import { PermissionGroup } from './entity/PermissionGroup';
 
-export const AppDataSource = new DataSource({
+export const appDataSource = new DataSource({
   type: 'mysql',
   host: 'localhost',
   port: 3306,
@@ -19,7 +19,7 @@ export const AppDataSource = new DataSource({
 
 export const initializeDataSource = async () => {
   try {
-    await AppDataSource.initialize();
+    await appDataSource.initialize();
     console.log('Data Source has been initialized!');
   } catch (err) {
     console.error('Error during Data Source initialization:', err);

@@ -3,11 +3,11 @@ import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 export default class PermissionDTO {
   @IsNotEmpty()
   @IsString()
-  permDesc!: string;
+  perm_desc!: string;
 
   @IsNotEmpty()
   @IsNumber()
-  groupId!: number;
+  group_id!: number;
 
   @IsNotEmpty()
   @IsNumber()

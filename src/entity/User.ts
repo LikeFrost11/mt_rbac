@@ -13,7 +13,7 @@ export class User {
   id!: number;
 
   @Column({ name: 'user_name' })
-  userName!: string;
+  user_name!: string;
 
   @Column()
   email!: string;
@@ -22,28 +22,33 @@ export class User {
   password!: string;
 
   @Column({ name: 'enterprise_id' })
-  enterpriseId!: number;
+  enterprise_id!: number;
 
   @Column({ name: 'group_id' })
-  groupId!: number;
+  group_id!: number;
 
   @CreateDateColumn({
-    name: 'create_time',
     type: 'datetime',
+    precision: 3,
+    default: () => 'CURRENT_TIMESTAMP(3)',
     transformer: {
+      // 日期格式转换
       to: (value: Date) => value,
       from: (value: string) => moment(value).format('YYYY-MM-DD HH:mm:ss'),
     },
   })
-  createTime!: Date;
+  create_time!: Date;
 
   @UpdateDateColumn({
-    name: 'update_time',
     type: 'datetime',
+    precision: 3,
+    default: () => 'CURRENT_TIMESTAMP(3)',
+    onUpdate: 'CURRENT_TIMESTAMP(3)',
     transformer: {
+      // 日期格式转换
       to: (value: Date) => value,
       from: (value: string) => moment(value).format('YYYY-MM-DD HH:mm:ss'),
     },
   })
-  updateTime!: Date;
+  update_time!: Date;
 }

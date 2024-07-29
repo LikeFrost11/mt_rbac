@@ -5,14 +5,15 @@ import { useKoaServer } from 'routing-controllers';
 import { Container } from 'typedi';
 import UserController from './controller/UserController';
 import PermissionController from './controller/PermissionController';
-import { AppDataSource } from './data-source';
+import { appDataSource } from './data-source';
 import { useContainer as typeOrmUseContainer } from 'typeorm';
 import { useContainer as rcUseContainer } from 'routing-controllers';
 
-rcUseContainer(Container);
-typeOrmUseContainer(Container);
+rcUseContainer(Container); //routing-controllers使用typedi容器
+typeOrmUseContainer(Container); //typeorm使用typedi容器
 
-AppDataSource.initialize()
+appDataSource
+  .initialize()
   .then(() => {
     console.log('Data Source has been initialized!');
     // 只有在数据源初始化成功后才启动服务器
@@ -30,5 +31,5 @@ AppDataSource.initialize()
     });
   })
   .catch((err) => {
-    console.error('Error during Data Source initialization:', err);
+    console.error('Error during Koa Server initialization:', err);
   });

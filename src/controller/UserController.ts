@@ -1,14 +1,12 @@
 import { Get, JsonController, Param, QueryParam } from 'routing-controllers';
 import { Inject, Service } from 'typedi';
-import { UserServiceImpl } from '../service/impl/UserServiceImpl';
+import { UserService } from '../service/UserService';
 
 @Service()
 @JsonController('/users')
 export default class UserController {
-  constructor(
-    @Inject()
-    private userService: UserServiceImpl
-  ) {}
+  @Inject()
+  private userService: UserService;
 
   @Get('/')
   async getAllUsers() {

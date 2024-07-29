@@ -1,4 +1,8 @@
 import { PermissionGroup } from '../entity/PermissionGroup';
-import { AppDataSource } from '../data-source';
+import { appDataSource } from '../data-source';
+import { EntityRepository, Repository } from "typeorm";
 
-export const permissionGroupRepository = AppDataSource.getRepository(PermissionGroup);
+@EntityRepository(PermissionGroup)
+export default class PermissionGroupRepository extends Repository<PermissionGroup> {
+
+}

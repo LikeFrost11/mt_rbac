@@ -12,32 +12,37 @@ export class Permission {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ type: 'varchar', length: 64, name: 'perm_desc' })
-  permDesc!: string;
+  @Column({ type: 'varchar', length: 64 })
+  perm_desc!: string;
 
-  @Column({ type: 'int', name: 'group_id' })
-  groupId!: number;
+  @Column({ type: 'int' })
+  group_id!: number;
 
-  @Column({ type: 'int', nullable: true })
+  @Column({ type: 'int', nullable: false })
   operate!: number;
 
   @CreateDateColumn({
-    name: 'create_time',
     type: 'datetime',
+    precision: 3,
+    default: () => 'CURRENT_TIMESTAMP(3)',
     transformer: {
+      // 日期格式转换
       to: (value: Date) => value,
       from: (value: string) => moment(value).format('YYYY-MM-DD HH:mm:ss'),
     },
   })
-  createTime!: Date;
+  create_time!: Date;
 
   @UpdateDateColumn({
-    name: 'update_time',
     type: 'datetime',
+    precision: 3,
+    default: () => 'CURRENT_TIMESTAMP(3)',
+    onUpdate: 'CURRENT_TIMESTAMP(3)',
     transformer: {
+      // 日期格式转换
       to: (value: Date) => value,
       from: (value: string) => moment(value).format('YYYY-MM-DD HH:mm:ss'),
     },
   })
-  updateTime!: Date;
+  update_time!: Date;
 }

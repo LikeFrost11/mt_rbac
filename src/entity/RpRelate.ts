@@ -7,16 +7,19 @@ import {
 } from 'typeorm';
 import moment from 'moment';
 
-@Entity('permission_group') // 指定表名
-export class PermissionGroup {
+@Entity('rp_relate') // 指定表名
+export default class RpRelate {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ type: 'varchar', length: 32, nullable: false })
-  group_name!: string;
+  @Column({ type: 'int', nullable: false })
+  role_id!: number;
 
-  @Column({ type: 'varchar', length: 64, nullable: false })
-  group_desc!: string;
+  @Column({ type: 'int', nullable: false })
+  perm_id!: number;
+
+  @Column({ type: 'varchar', length: 64 })
+  description!: string;
 
   @CreateDateColumn({
     type: 'datetime',
